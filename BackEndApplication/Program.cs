@@ -1,3 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// Gówno dupa
 
 Console.WriteLine("Hello, World!");
