@@ -1,4 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
-// dupda dupa
+﻿using System;
 
-Console.WriteLine("Hello, Worlddd!");
+namespace UserApplication
+{
+    public static class Program
+    {
+        public static void Main()
+        {
+            RunApplication runProgram = new RunApplication();
+            runProgram.RunApp();
+        }
+    }
+}
