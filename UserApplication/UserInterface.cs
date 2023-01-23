@@ -4,17 +4,21 @@ namespace UserApplication
 {
     public class UserInterface
     {
-        private string[] mainMenuOptions = new string[]{"Rozpocznij podróż", "Wyjdź"};
+        private List<string[]> menuOptions = new List<string[]>(){new string[]{ "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz dzień podróży", "Wybierz godzinę podróży", "Wyjdź" }, new string[]
+            { "Wybierz dzień tyodnia twojej podróży:", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela", "Wróć" }};
         
-        public void DrawMenuOptions(string[] options = null)
+        public void DrawMenuOptions(int menuState)
         {
-            Console.Clear();
-            
-            options = options == null ? mainMenuOptions : options;
+            string[] menuOption = menuOptions[menuState];
+
+            Console.WriteLine($"{menuOption[0]}");
             int i;
-            for (i = 0; i < options.Length; i++)
+            for (i = 1; i < menuOption.Length; i++)
             {
-                Console.WriteLine($"{i+1}. {options[i]}");
+                if(menuOption[i] == "Wróć" || menuOption[i] == "Wyjdź")
+                    Console.WriteLine($"{0}. {menuOption[i]}");
+                else
+                    Console.WriteLine($"{i}. {menuOption[i]}");
             }
         }
 
@@ -23,6 +27,11 @@ namespace UserApplication
             Console.Write("Opcja: ");
             string option = Console.ReadLine();
             return option;
+        }
+
+        public void HandleMenuOption(string option, int menuState)
+        {
+            
         }
     }
 }
