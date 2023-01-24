@@ -1,25 +1,38 @@
 ﻿namespace BackEndApplication;
 
-public class TimeTable : PreTimeTable
+public class TimeTable
 {
     private List<Ride<TimeOnly>> rides;
-    public TimeTable(char city) : base(city){}
+    private char city;
+    public TimeTable(char city)
+    {
+        this.city = city;
+    }
 
-    public override void PrintTable()
+    public void PrintTable()
     {
         IEnumerable<Action> pendingOpperations = from ride in rides select new Action(() => ride.PrintRide());
         foreach(Action action in pendingOpperations) action.Invoke();
     }
     
-    public override void setTable(Task<List<Ride<TimeOnly>>> rides)
+    public void SetTable(Task<List<Ride<TimeOnly>>> rides)
     {
         this.rides = rides.Result;
         Console.WriteLine("Wygenerowany rozkład jazdy dla stacji w mieście "+city+":\n");
         PrintTable();
         Console.WriteLine("\n");
     }
-    
-    public override async Task<List<Ride<TimeOnly>>> generateTable()
+
+    public char GetCity()
+    {
+        return city;
+    }
+
+    public List<Ride<TimeOnly>> GetRides()
+    {
+        return rides;
+    }
+    public async Task<List<Ride<TimeOnly>>> GenerateTable()
     {
         switch (city)
         {

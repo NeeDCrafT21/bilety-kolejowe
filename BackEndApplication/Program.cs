@@ -11,21 +11,23 @@ class Program
         TimeTable B = new TimeTable('B');
         TimeTable C = new TimeTable('C');
 
-        var (taskA, taskB, taskC) = (A.generateTable(), B.generateTable(), C.generateTable());
+        var (taskA, taskB, taskC) = (A.GenerateTable(), B.GenerateTable(), C.GenerateTable());
         var tempA = (async () => await taskA);
-        A.setTable(tempA());
+        A.SetTable(tempA());
         var tempB = (async () => await taskB);
-        B.setTable(tempB());
+        B.SetTable(tempB());
         var tempC = (async () => await taskC);
-        C.setTable(tempC());
-        C.PrintTable();
+        C.SetTable(tempC());
 
         //TODO dane przesłane
-        TimeOnly startTime = new TimeOnly(8,0);
-        Ticket<TimeOnly> ticket = new Ticket<TimeOnly>(startTime,'A','B');
+        TimeOnly startTime = new TimeOnly(20,0);
+        MessageTicket ticket = new MessageTicket(startTime,'A','B');//dodać do Ticket TimeSpan
         //koniec przesłanych danych
 
-        
+        Calculator mill = new Calculator(ticket, A, B, C);
+
+        List<AbstractTicket> a = mill.FindRoute();
+        mill.Print();
 
     }
 }
