@@ -7,36 +7,26 @@ public class RunApplication
     private UserInterface UI = new UserInterface();
     private Boolean run = true;
     private int menuState = 0;
-    
+    private AbstractMenuScreen mainMenuScreen = new MainMenuScreen(0);
+    private AbstractMenuScreen ChooseDayMenuScreen = new ChooseDayMenuScreen(1);
+    private AbstractMenuScreen ChooseTimeMenuScreen = new ChooseTimeMenuScreen(2);
+
+    //private List<AbstractMenuScreen> screens = new List<AbstractMenuScreen>()
+    // {
+    //     new MainMenuScreen(0), new ChooseDayMenuScreen(1), new ChooseTimeMenuScreen(2)
+    // };
+
     public void RunApp()
     {
-        while (run)
-        {
-            UI.DrawMenuOptions(menuState);
-            string option = UI.ChooseMenuOption();
+        // ChooseDayMenuScreen mainMenuScreen = new ChooseDayMenuScreen(1);
+        // mainMenuScreen.DrawMenuOptions();
+        //mainMenuScreen.DrawMenuOptions();
 
-            switch (option)
-            {
-                case "1":
-                    Console.Clear();
-                    menuState = 1;
-                    break;
-                case "0":
-                    if (menuState != 0)
-                    {
-                        Console.Clear();
-                        menuState = 0;
-                    }
-                    else
-                        run = false;
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("| Wybierz poprawną opcję |");
-                    break;
-            }
-            
-        }
+        while (run)
+         {
+             string option = UI.ChooseMenuOption();
+             //screens[menuState].DrawMenuOptions();
+         }
     }
     
 }
