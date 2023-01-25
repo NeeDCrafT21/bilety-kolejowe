@@ -1,6 +1,6 @@
-﻿using System.Globalization;
+﻿namespace UserApplication;
 
-namespace UserApplication;
+using System;
 
 public class MainMenuScreen : AbstractMenuScreen
 {
@@ -31,12 +31,19 @@ public class MainMenuScreen : AbstractMenuScreen
         }
     }
     
-    
-
-    /*
-    public int ExecuteSelectedOption(string option)
+    public override int ExecuteSelectedOption(string option, int menuState)
     {
-        
+        switch (option)
+        {
+            case "1":
+                return 1;
+            case "2":
+                return 2;
+            case "0":
+                return -1;
+            default:
+                Console.WriteLine("| Wybierz poprawną opcję |"); 
+                return menuState;
+        }
     }
-    */
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UserApplication
+﻿namespace UserApplication
 {
     public static class Program
     {

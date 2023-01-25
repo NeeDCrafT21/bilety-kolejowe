@@ -5,7 +5,7 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen
     private int screenNumber;
     private List<string> menuOptions = new List<string>()
     {
-        "Wybierz czas twojej podróży:", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela", "Wróć"
+        "Wprowadź czas twojej podróży:", "Wróć"
     };
     
     public ChooseTimeMenuScreen(int screenNumber)
@@ -24,5 +24,10 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen
             else
                 Console.WriteLine($"{i}. {menuOptions[i]}");
         }
+    }
+    
+    public override int ExecuteSelectedOption(string option, int menuState)
+    {
+        return 0;
     }
 }

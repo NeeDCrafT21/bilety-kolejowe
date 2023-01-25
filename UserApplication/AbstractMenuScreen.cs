@@ -6,19 +6,8 @@ public abstract class AbstractMenuScreen
     public List<string> _menuOptions { get; }
 
     public abstract void DrawMenuOptions();
-    // {
-    //     Console.WriteLine($"{menuOptions[0]}");
-    //     int i;
-    //     for (i = 1; i < menuOptions.Count; i++)
-    //     {
-    //         if(menuOptions[i] == "Wróć" || menuOptions[i] == "Wyjdź")
-    //             Console.WriteLine($"{0}. {menuOptions[i]}");
-    //         else
-    //             Console.WriteLine($"{i}. {menuOptions[i]}");
-    //     }
-    //     
-    // }
-    
+    public abstract int ExecuteSelectedOption(string option, int menuState);
+
     public int getNumber()
     {
         return number;

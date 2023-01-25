@@ -25,4 +25,9 @@ public class ChooseDayMenuScreen : AbstractMenuScreen
                 Console.WriteLine($"{i}. {menuOptions[i]}");
         }
     }
+    
+    public override int ExecuteSelectedOption(string option, int menuState)
+    {
+        return 0;
+    }
 }
