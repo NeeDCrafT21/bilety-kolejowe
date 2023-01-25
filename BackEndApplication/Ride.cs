@@ -23,7 +23,7 @@ public class Ride<T>
     {
         return destination;
     }
-    public T getHour()
+    public T getTime()
     {
         return time;
     }
