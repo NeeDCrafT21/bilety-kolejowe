@@ -2,17 +2,11 @@
 
 public class ChooseTimeMenuScreen : AbstractMenuScreen
 {
-    private int screenNumber;
     private List<string> menuOptions = new List<string>()
     {
         "Wprowadź czas twojej podróży:", "Wróć"
     };
-    
-    public ChooseTimeMenuScreen(int screenNumber)
-    {
-        this.screenNumber = screenNumber;
-    }
-    
+
     public override void DrawMenuOptions()
     {
         Console.WriteLine($"{menuOptions[0]}");

@@ -2,17 +2,11 @@
 
 public class ChooseDayMenuScreen : AbstractMenuScreen
 {
-    private int screenNumber;
     private List<string> menuOptions = new List<string>()
     {
         "Wybierz dzień tygodnia twojej podróży:", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela", "Wróć"
     };
 
-    public ChooseDayMenuScreen(int screenNumber)
-    {
-        this.screenNumber = screenNumber;
-    }
-    
     public override void DrawMenuOptions()
     {
         Console.WriteLine($"{menuOptions[0]}");

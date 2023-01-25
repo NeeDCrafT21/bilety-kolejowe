@@ -8,9 +8,11 @@ public class RunApplication
     private Boolean run = true;
     private int menuState;
     private string option;
-    private AbstractMenuScreen mainMenuScreen = new MainMenuScreen(0);
-    private AbstractMenuScreen chooseDayMenuScreen = new ChooseDayMenuScreen(1);
-    private AbstractMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen(2);
+    private MainMenuScreen mainMenuScreen = new MainMenuScreen();
+    private ChooseDayMenuScreen chooseDayMenuScreen = new ChooseDayMenuScreen();
+    private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
+    private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
+    private MessageTicket ticket = new MessageTicket(new TimeOnly(1, 1,1), 'A', 'B');
 
     public string ChooseMenuOption()
     {
@@ -22,6 +24,8 @@ public class RunApplication
     public void RunApp()
     {
         menuState = 0;
+        ticket.departurePlace = 'F';
+        
         while (run)
         {
             switch (menuState)
@@ -44,6 +48,13 @@ public class RunApplication
                     chooseTimeMenuScreen.DrawMenuOptions(); 
                     option = ChooseMenuOption();
                     menuState = chooseTimeMenuScreen.ExecuteSelectedOption(option, menuState);
+                    Console.Clear(); 
+                    break;
+                case 3:
+                    chooseCityMenuScreen.ResetChoice();
+                    chooseCityMenuScreen.DrawMenuOptions(); 
+                    option = ChooseMenuOption();
+                    menuState = chooseCityMenuScreen.ExecuteSelectedOption(option, menuState);
                     Console.Clear(); 
                     break;
             }
