@@ -40,8 +40,6 @@ public class Calculator
             }
         }
 
-        Ticket ticket1 = new Ticket(ride1.getHour(), ticket.GetDeparturePlace(), ride1.getDestination(), ride1.getDuration());
-
         Ride<TimeOnly> ride2 = tables[i].GetRides().SkipWhile(p =>
             p.getHour() <= ticket.GetTime() || p.getDestination() == tables[j].GetCity()).FirstOrDefault();
         if (ride2 == null)
@@ -60,7 +58,7 @@ public class Calculator
         Ride<TimeOnly> ride3 = tables[j].GetRides().SkipWhile(p=> 
             p.getHour() <= ticket.GetTime().Add(ride2.getDuration(), out x) || p.getDestination() == ticket.GetArrivalPlace()).FirstOrDefault();
         
-        if (x!=0 || ride3 == null)
+        if (ride3 == null)
         {
             if (tables[j].GetRides()[0].getDestination() == ticket.GetArrivalPlace())
             {
