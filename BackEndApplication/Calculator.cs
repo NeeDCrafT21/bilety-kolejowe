@@ -4,7 +4,7 @@ public class Calculator
 {
     private MessageTicket ticket;
     private List<TimeTable> tables = new List<TimeTable>();
-    private List<AbstractTicket> output;
+    private MessageTicket2 output;
 
     public Calculator(MessageTicket ticket, params TimeTable[] tables)
     {
@@ -14,13 +14,8 @@ public class Calculator
             this.tables.Add(table);
         }
     }
-
-    public void Print()
-    {
-        output[0].Print();
-        output[1].Print();
-    }
-    public List<AbstractTicket> FindRoute()
+    
+    public MessageTicket2 FindRoute()
     {
         int i = tables.FindIndex(a => a.GetCity() == ticket.GetDeparturePlace());
         int j = tables.FindIndex(a => a.GetCity() != ticket.GetArrivalPlace() && a.GetCity() != ticket.GetDeparturePlace());
@@ -40,6 +35,7 @@ public class Calculator
             }
         }
 
+        //find closest ride with train change
         Ride<TimeOnly> ride2 = tables[i].GetRides().SkipWhile(p =>
             p.getTime() <= ticket.GetTime() || p.getDestination() != tables[j].GetCity()).FirstOrDefault();
         if (ride2 == null)
@@ -76,8 +72,10 @@ public class Calculator
         
         temp.Add(temp1);
         temp.Add(temp2);
-        output = temp;
+
+        MessageTicket2 message = new MessageTicket2(temp);
+        output = message;
         
-        return temp;
+        return message;
     }
 }

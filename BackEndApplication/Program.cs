@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection;
 using BackEndApplication;
 
 
@@ -21,13 +22,17 @@ class Program
 
         //TODO dane przesłane
         TimeOnly startTime = new TimeOnly(20,0);
+
         MessageTicket ticket = new MessageTicket(startTime,'A','B');//dodać do Ticket TimeSpan
         //koniec przesłanych danych
+        
+        ticket.Print();
 
         Calculator mill = new Calculator(ticket, A, B, C);
 
-        List<AbstractTicket> a = mill.FindRoute();
-        mill.Print();
+        MessageTicket2 tickets = mill.FindRoute();
+        
+        tickets.Print();
 
     }
 }
