@@ -15,11 +15,11 @@ public class TicketAdvanced : AbstractTicket
         this.arrivalPlace = arrivalPlace;
         this.partialDuration = partialDuration;
         
-        this.startTime2 = startTime;
+        this.startTime2 = startTime2;
         this.departurePlace2 = departurePlace2;
         this.arrivalPlace2 = arrivalPlace2;
         
-        this.duration = (this.startTime2 - this.startTime) + duration;
+        this.duration = duration;
     }
 
     public TimeOnly GetTime2()
@@ -36,15 +36,22 @@ public class TicketAdvanced : AbstractTicket
         return departurePlace2;
     }
     
-    public TimeSpan GetDuration()
+    public TimeSpan GetDuration2()
     {
         return duration;
+    }
+
+    public TimeSpan GetDuration()
+    {
+        return partialDuration;
     }
     
     public override void Print()
     {
         Console.WriteLine("\nBilet2");
-        Console.WriteLine("Przed przesiadką: "+startTime+" "+ departurePlace+" "+arrivalPlace+" "+partialDuration+".");
-        Console.WriteLine("Po przesiadce: "+startTime2+" "+ departurePlace2+" "+arrivalPlace2+" "+duration+".");
+        Console.WriteLine("Przejazd o godzinie "+startTime+" z "+ departurePlace+" do "+arrivalPlace+", będzie trwał "+partialDuration+".");
+        Console.WriteLine("Pociąg dojedzie do stacji przesiadkowej o godzinie "+startTime.Add(partialDuration)+".");
+        Console.WriteLine("Przesiadka na pociąg o godzinie "+startTime2+" z "+ departurePlace2+" do "+arrivalPlace2+", przejazd będzie trwał "+duration+".");
+        Console.WriteLine("Pociąg dojedzie na miejsce o godzinie "+startTime2.Add(duration)+".");
     }
 }

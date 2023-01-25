@@ -18,6 +18,8 @@ public class Ticket : AbstractTicket
 
     public override void Print()
     {
-        Console.WriteLine("\nBilet1\n"+startTime+" "+ departurePlace+" "+arrivalPlace+" "+duration+".");
+        Console.WriteLine("\nBilet1");
+        Console.WriteLine("Przejazd o godzinie "+startTime+" z "+ departurePlace+" do "+arrivalPlace+", będzie trwał "+duration+"."); 
+        Console.WriteLine("Pociąg dojedzie na miejsce o godzinie "+startTime.Add(duration)+".");
     }
 }
