@@ -7,12 +7,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        var server = new NamedPipeServerStream("PipesOfPiece");
+        /*var server = new NamedPipeServerStream("PipesOfPiece");
         server.WaitForConnection();
         StreamReader reader = new StreamReader(server);
         StreamWriter writer = new StreamWriter(server);
         
-        var message = reader.ReadLine();
+        var message = reader.ReadLine();*/
 
         //filling time tables
             TimeTable A = new TimeTable('A');
@@ -27,12 +27,12 @@ class Program
             var tempC = (async () => await taskC);
             C.SetTable(tempC());
 
-            /*
+            
             TimeOnly startTime = new TimeOnly(7, 0);
 
-            MessageTicket ticket = new MessageTicket(startTime, 'C', 'B'); //dodać do Ticket TimeSpan
-            */
-            MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
+            MessageTicket ticket = new MessageTicket(startTime, 'C', 'A'); //dodać do Ticket TimeSpan
+            
+            //MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
             
             ticket.Print();
 
@@ -43,8 +43,8 @@ class Program
             tickets.Print();
 
             var message2 = JsonSerializer.Serialize(tickets);
-            writer.WriteLine(message2);
-            writer.Flush();
+            /*writer.WriteLine(message2);
+            writer.Flush();*/
 
         Console.ReadLine();
 

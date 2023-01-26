@@ -76,18 +76,18 @@ public class TimeTable
             {
                 List<Ride<TimeOnly>> ridesC = new List<Ride<TimeOnly>>();
 
-                TimeOnly a = new TimeOnly(8, 30);
-                TimeSpan b = new TimeSpan(2, 0, 0);
-                ridesC.Add(new Ride<TimeOnly>('B', a,b));
-                a = new TimeOnly(17, 35);
-                b = new TimeSpan(2, 0, 0);
-                ridesC.Add(new Ride<TimeOnly>('B', a, b));
-                a = new TimeOnly(8, 15);
-                b = new TimeSpan(1, 0, 0);
+                TimeOnly a = new TimeOnly(8, 15);
+                TimeSpan b = new TimeSpan(1, 0, 0);
                 ridesC.Add(new Ride<TimeOnly>('A', a, b));
                 a = new TimeOnly(13, 30);
                 b = new TimeSpan(1, 0, 0);
                 ridesC.Add(new Ride<TimeOnly>('A', a, b));
+                a = new TimeOnly(8, 30);
+                b = new TimeSpan(2, 0, 0);
+                ridesC.Add(new Ride<TimeOnly>('B', a,b));
+                a = new TimeOnly(17, 35);
+                b = new TimeSpan(2, 0, 0);
+                ridesC.Add(new Ride<TimeOnly>('B', a, b));
                 return ridesC;
             }
     }

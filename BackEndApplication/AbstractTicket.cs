@@ -2,10 +2,16 @@
 
 public abstract class AbstractTicket
 {
-    protected TimeOnly startTime;
-    protected char departurePlace;
-    protected char arrivalPlace;
-
+    public TimeOnly startTime { get; set; }
+    public char departurePlace { get; set; }
+    public char arrivalPlace { get; set; }
+    
+protected AbstractTicket(TimeOnly startTime, char departurePlace, char arrivalPlace)
+{
+    this.startTime = startTime;
+    this.departurePlace = departurePlace;
+    this.arrivalPlace = arrivalPlace;
+}
     public char GetArrivalPlace()
     {
         return arrivalPlace;

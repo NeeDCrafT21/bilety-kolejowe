@@ -22,7 +22,7 @@ public class Calculator
         
         //find closest ride without train change
         Ride<TimeOnly> ride1 = tables[i].GetRides().SkipWhile(p=> 
-            p.getTime() <= ticket.GetTime() || p.getDestination() == ticket.GetArrivalPlace()).FirstOrDefault();
+            p.getTime() <= ticket.GetTime() || p.getDestination() != ticket.GetArrivalPlace()).FirstOrDefault();
         if(ride1 == null)
         {
             if (tables[i].GetRides()[0].getDestination() == ticket.GetArrivalPlace())
