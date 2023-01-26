@@ -7,7 +7,7 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen
     private int minute;
     private List<string> menuOptions = new List<string>()
     {
-        "Wprowadź godzinę [HH] twojej podróży:", "Wprowadź minuty [MM] twojej podróży:", "Wróć"
+        $"Wprowadź godzinę [HH] twojej podróży:", "Wprowadź minuty [MM] twojej podróży:", "Wróć"
     };
 
     public override void DrawMenuOptions()
@@ -30,11 +30,11 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen
     {
         if (!choseMinutes)
         {
-            Console.WriteLine($"Godzina [HH]:{ticket.startTime.Minute}");
+            Console.WriteLine($"Godzina [HH]:{ticket.startMinute}");
             try
             {
                 hour = Int32.Parse(option) % 25;
-                ticket.startTime = new TimeOnly(hour, ticket.startTime.Minute);
+                ticket.startHour = hour;
                 choseMinutes = true;
                 return menuState;
             }
@@ -44,11 +44,11 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen
             }
         }
         
-        Console.WriteLine($"Godzina {ticket.startTime.Hour}:[MM]");
+        Console.WriteLine($"Godzina {ticket.startHour}:[MM]");
         try
         {
             minute = Int32.Parse(option) % 60;
-            ticket.startTime = new TimeOnly(ticket.startTime.Hour, minute);
+            ticket.startMinute = minute;
             return 0;
         }
         catch (FormatException)

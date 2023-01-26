@@ -1,10 +1,12 @@
-﻿namespace UserApplication;
+﻿using System.Text.Json;
+
+namespace UserApplication;
 
 using System;
 
 public class RunApplication
 {
-    private UserInterface UI = new UserInterface();
+    //private UserInterface UI = new UserInterface();
     private Boolean run = true;
     private int menuState;
     private string option;
@@ -12,7 +14,7 @@ public class RunApplication
     private ChooseDayMenuScreen chooseDayMenuScreen = new ChooseDayMenuScreen();
     private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
-    private MessageTicket ticket = new MessageTicket(new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute), 'A', 'B');
+    private MessageTicket ticket = new MessageTicket(DateTime.Now.Hour, DateTime.Now.Minute, 'A', 'B');
     private PipeServer sender = new PipeServer();
 
     public string ChooseMenuOption()
@@ -30,7 +32,7 @@ public class RunApplication
             switch (menuState)
             { 
                 case 0:
-                    Console.WriteLine($"Godzina wyjazdu: {ticket.startTime}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
+                    Console.WriteLine($"Godzina wyjazdu: {ticket.startHour}:{ticket.startMinute}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
                     mainMenuScreen.DrawMenuOptions();
                     option = ChooseMenuOption();
                     menuState = mainMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
@@ -59,8 +61,11 @@ public class RunApplication
                     Console.Clear(); 
                     break;
                 case 4:
-                    if(ticket.departurePlace != ticket.arrivalPlace)
-                        sender.SendTicketInfo();
+                    if (ticket.departurePlace != ticket.arrivalPlace)
+                    {
+                        var message = JsonSerializer.Serialize(ticket);
+                        sender.SendTicketInfo(message);
+                    }
                     else
                         Console.WriteLine("| Miasta wyjazdu i przyjazdu nie mogą być takie same |"); 
                     menuState = 0;

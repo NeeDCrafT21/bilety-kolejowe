@@ -2,7 +2,7 @@
 
 public class MessageTicket : AbstractTicket
 {
-    public MessageTicket(TimeOnly startTime, char departurePlace, char arrivalPlace) : base(startTime, departurePlace, arrivalPlace)
+    public MessageTicket(int startHour, int startMinute, char departurePlace, char arrivalPlace) : base(startHour, startMinute, departurePlace, arrivalPlace)
     {
         // this.startTime = startTime;
         // this.departurePlace = departurePlace;
