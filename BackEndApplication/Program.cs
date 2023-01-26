@@ -30,7 +30,7 @@ class Program
             
             /* Struktura do testowania dzialania programu bez komunikacji
             TimeOnly startTime = new TimeOnly(8, 20);
-            MessageTicket ticket = new MessageTicket(startTime, 'C', 'A'); //dodać do Ticket TimeSpan*/
+            MessageTicket ticket = new MessageTicket(startTime, 'C', 'A');*/
             
             MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
             

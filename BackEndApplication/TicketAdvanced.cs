@@ -10,9 +10,6 @@ public class TicketAdvanced : AbstractTicket
     
     public TicketAdvanced(TimeOnly startTime, char departurePlace, char arrivalPlace, TimeSpan partialDuration, TimeOnly startTime2,char departurePlace2, char arrivalPlace2, TimeSpan duration ) : base(startTime, departurePlace, arrivalPlace)
     {
-        //this.startTime = startTime;
-        //this.departurePlace = departurePlace;
-        //this.arrivalPlace = arrivalPlace;
         this.partialDuration = partialDuration;
         
         this.startTime2 = startTime2;
