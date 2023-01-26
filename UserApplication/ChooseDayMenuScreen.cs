@@ -20,7 +20,7 @@ public class ChooseDayMenuScreen : AbstractMenuScreen
         }
     }
     
-    public override int ExecuteSelectedOption(string option, int menuState)
+    public override int ExecuteSelectedOption(string option, int menuState, MessageTicket ticket)
     {
         return 0;
     }

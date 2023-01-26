@@ -12,7 +12,7 @@ public class RunApplication
     private ChooseDayMenuScreen chooseDayMenuScreen = new ChooseDayMenuScreen();
     private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
-    private MessageTicket ticket = new MessageTicket(new TimeOnly(1, 1,1), 'A', 'B');
+    private MessageTicket ticket = new MessageTicket(new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute), 'A', 'B');
     private PipeServer sender = new PipeServer();
 
     public string ChooseMenuOption()
@@ -30,34 +30,39 @@ public class RunApplication
             switch (menuState)
             { 
                 case 0:
+                    Console.WriteLine($"Godzina wyjazdu: {ticket.startTime}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
                     mainMenuScreen.DrawMenuOptions();
                     option = ChooseMenuOption();
-                    menuState = mainMenuScreen.ExecuteSelectedOption(option, menuState);
+                    menuState = mainMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
                     if (menuState == -1)
                         run = false;
+                    chooseCityMenuScreen.ResetChoiceState();
+                    chooseTimeMenuScreen.ResetChoiceState();
                     Console.Clear();
                     break;
                 case 1:
                     chooseDayMenuScreen.DrawMenuOptions(); 
                     option = ChooseMenuOption();
-                    menuState = chooseDayMenuScreen.ExecuteSelectedOption(option, menuState);
+                    menuState = chooseDayMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
                     Console.Clear();
                     break; 
                 case 2:
                     chooseTimeMenuScreen.DrawMenuOptions(); 
                     option = ChooseMenuOption();
-                    menuState = chooseTimeMenuScreen.ExecuteSelectedOption(option, menuState);
+                    menuState = chooseTimeMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
                     Console.Clear(); 
                     break;
                 case 3:
-                    chooseCityMenuScreen.ResetChoice();
                     chooseCityMenuScreen.DrawMenuOptions(); 
                     option = ChooseMenuOption();
-                    menuState = chooseCityMenuScreen.ExecuteSelectedOption(option, menuState);
+                    menuState = chooseCityMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
                     Console.Clear(); 
                     break;
                 case 4:
-                    sender.SendTicketInfo();
+                    if(ticket.departurePlace != ticket.arrivalPlace)
+                        sender.SendTicketInfo();
+                    else
+                        Console.WriteLine("| Miasta wyjazdu i przyjazdu nie mogą być takie same |"); 
                     menuState = 0;
                     break;
             }
