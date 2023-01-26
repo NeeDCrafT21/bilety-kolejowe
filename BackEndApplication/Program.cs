@@ -46,7 +46,5 @@ class Program
             writer.WriteLine(message2);
             writer.Flush();
 
-        Console.ReadLine();
-
     }
 }
