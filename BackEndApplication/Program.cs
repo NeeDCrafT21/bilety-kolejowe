@@ -28,7 +28,7 @@ class Program
             C.SetTable(tempC());
 
             
-            TimeOnly startTime = new TimeOnly(7, 0);
+            TimeOnly startTime = new TimeOnly(8, 20);
 
             MessageTicket ticket = new MessageTicket(startTime, 'C', 'A'); //dodać do Ticket TimeSpan
             

@@ -31,7 +31,7 @@ public class Calculator
             }
             else
             {
-                ride1 = tables[i].GetRides()[2];
+                ride1 = tables[i].GetRides()[4];
             }
         }
 
@@ -46,7 +46,7 @@ public class Calculator
             }
             else
             {
-                ride2 = tables[i].GetRides()[2];
+                ride2 = tables[i].GetRides()[4];
             }
         }
         
@@ -61,7 +61,7 @@ public class Calculator
             }
             else
             {
-                ride3 = tables[j].GetRides()[2];
+                ride3 = tables[j].GetRides()[4];
             }
         }
         
