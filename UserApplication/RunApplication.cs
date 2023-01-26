@@ -13,6 +13,7 @@ public class RunApplication
     private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
     private MessageTicket ticket = new MessageTicket(new TimeOnly(1, 1,1), 'A', 'B');
+    private PipeServer sender = new PipeServer();
 
     public string ChooseMenuOption()
     {
@@ -24,8 +25,6 @@ public class RunApplication
     public void RunApp()
     {
         menuState = 0;
-        ticket.departurePlace = 'F';
-        
         while (run)
         {
             switch (menuState)
@@ -56,6 +55,10 @@ public class RunApplication
                     option = ChooseMenuOption();
                     menuState = chooseCityMenuScreen.ExecuteSelectedOption(option, menuState);
                     Console.Clear(); 
+                    break;
+                case 4:
+                    sender.SendTicketInfo();
+                    menuState = 0;
                     break;
             }
         }
