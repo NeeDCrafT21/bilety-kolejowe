@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace BackEndApplication;
+﻿namespace BackEndApplication;
 
 public class Ride<T>
 {
