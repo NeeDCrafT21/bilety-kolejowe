@@ -21,8 +21,9 @@ public class Calculator
         int j = tables.FindIndex(a => a.GetCity() != ticket.GetArrivalPlace() && a.GetCity() != ticket.GetDeparturePlace());
         
         //find closest ride without train change
+        TimeOnly ticketTime = new TimeOnly(ticket.startHour, ticket.startMinute);
         Ride<TimeOnly> ride1 = tables[i].GetRides().SkipWhile(p=> 
-            p.getTime() <= ticket.GetTime() || p.getDestination() != ticket.GetArrivalPlace()).FirstOrDefault();
+            p.getTime() <= ticketTime || p.getDestination() != ticket.GetArrivalPlace()).FirstOrDefault();
         if(ride1 == null)
         {
             if (tables[i].GetRides()[0].getDestination() == ticket.GetArrivalPlace())
@@ -37,7 +38,7 @@ public class Calculator
 
         //find closest ride with train change
         Ride<TimeOnly> ride2 = tables[i].GetRides().SkipWhile(p =>
-            p.getTime() <= ticket.GetTime() || p.getDestination() != tables[j].GetCity()).FirstOrDefault();
+            p.getTime() <= ticketTime || p.getDestination() != tables[j].GetCity()).FirstOrDefault();
         if (ride2 == null)
         {
             if (tables[i].GetRides()[0].getDestination() == tables[j].GetCity())
@@ -67,7 +68,9 @@ public class Calculator
         
         List<AbstractTicket> temp = new List<AbstractTicket>();
         AbstractTicket temp1 = new Ticket(ride1.getTime(),ticket.GetDeparturePlace(),ticket.GetArrivalPlace(),ride1.getDuration());
-        AbstractTicket temp2 = new TicketAdvanced(ride2.getTime(),ticket.GetDeparturePlace(),ride2.getDestination(),ride2.getDuration(),ride3.getTime(),tables[j].GetCity(),ticket.GetArrivalPlace(), ride3.getDuration());
+        int hour = ride2.getTime().Hour;
+        int minute = ride2.getTime().Minute;
+        AbstractTicket temp2 = new TicketAdvanced(hour, minute,ticket.GetDeparturePlace(),ride2.getDestination(),ride2.getDuration(),ride3.getTime(),tables[j].GetCity(),ticket.GetArrivalPlace(), ride3.getDuration());
         
         
         temp.Add(temp1);
