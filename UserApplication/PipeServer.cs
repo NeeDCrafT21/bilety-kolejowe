@@ -11,7 +11,8 @@ public class PipeServer
     {
         Process pipeClient = new Process();
 
-        pipeClient.StartInfo.FileName = "pipeClient.exe";
+        var filepath = AppDomain.CurrentDomain.BaseDirectory.Replace("UserApplication\\bin\\Debug\\net6.0\\","BackEndApplication\\bin\\Debug\\net6.0\\BackEndApplication.exe");
+        pipeClient.StartInfo.FileName = filepath;
 
         using (AnonymousPipeServerStream pipeServer =
                new AnonymousPipeServerStream(PipeDirection.Out,
