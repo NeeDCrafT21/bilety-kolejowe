@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 public class PipeServer
 {
-    public void SendTicketInfo()
+    public void SendTicketInfo1()
     {
         Process pipeClient = new Process();
 
@@ -28,6 +28,52 @@ public class PipeServer
             pipeClient.Start();
 
             pipeServer.DisposeLocalCopyOfClientHandle();
+
+            try
+            {
+                // Read user input and send that to the client process.
+                using (StreamWriter sw = new StreamWriter(pipeServer))
+                {
+                    sw.AutoFlush = true;
+                    // Send a 'sync message' and wait for client to receive it.
+                    sw.WriteLine("SYNC");
+                    pipeServer.WaitForPipeDrain();
+                    // Send the console input to the client process.
+                    Console.Write("[SERVER] Enter text: ");
+                    sw.WriteLine(Console.ReadLine());
+                }
+            }
+            // Catch the IOException that is raised if the pipe is broken
+            // or disconnected.
+            catch (IOException e)
+            {
+                Console.WriteLine("[SERVER] Error: {0}", e.Message);
+            }
+        }
+
+        pipeClient.WaitForExit();
+        pipeClient.Close();
+        Console.WriteLine("[SERVER] Client quit. Server terminating.");
+    }
+    
+    public void SendTicketInfo()
+    {
+        Process pipeClient = new Process();
+
+        var filepath = AppDomain.CurrentDomain.BaseDirectory.Replace("UserApplication\\bin\\Debug\\net6.0\\","BackEndApplication\\bin\\Debug\\net6.0\\BackEndApplication.exe");
+        pipeClient.StartInfo.FileName = filepath;
+
+        using (NamedPipeServerStream pipeServer =
+               new NamedPipeServerStream("ticketpipe"))
+        {
+            Console.WriteLine("[SERVER] Current TransmissionMode: {0}.",
+                pipeServer.TransmissionMode);
+
+            // Pass the client process a handle to the server.
+            pipeClient.StartInfo.UseShellExecute = false;
+            pipeClient.Start();
+
+            pipeServer.WaitForConnection();
 
             try
             {

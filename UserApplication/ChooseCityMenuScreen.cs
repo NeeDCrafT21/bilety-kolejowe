@@ -26,12 +26,14 @@ public class ChooseCityMenuScreen : AbstractMenuScreen
         }
     }
     
-    public override int ExecuteSelectedOption(string option, int menuState)
+    public override int ExecuteSelectedOption(string option, int menuState, MessageTicket ticket)
     {
         if (!choseArrivalPlace)
         {
             switch (option)
             {
+                case "0":
+                    return 0;
                 case "1":
                     departurePlace = 'A';
                     break;
@@ -42,26 +44,32 @@ public class ChooseCityMenuScreen : AbstractMenuScreen
                     departurePlace = 'C';
                     break;
             }
+
+            ticket.departurePlace = departurePlace;
             choseArrivalPlace = true;
             return menuState;
         }
         
         switch (option)
         {
+            case "0":
+                return 0;
             case "1":
-                departurePlace = 'A';
+                arrivalPlace = 'A';
                 break;
             case "2":
-                departurePlace = 'B';
+                arrivalPlace = 'B';
                 break;
             case "3":
-                departurePlace = 'C';
+                arrivalPlace = 'C';
                 break;
         }
+
+        ticket.arrivalPlace = arrivalPlace;
         return 0;
     }
 
-    public void ResetChoice()
+    public void ResetChoiceState()
     {
         choseArrivalPlace = false;
     }

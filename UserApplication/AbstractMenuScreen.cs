@@ -6,12 +6,5 @@ public abstract class AbstractMenuScreen
     //public List<string> _menuOptions { get; }
 
     public abstract void DrawMenuOptions();
-    public abstract int ExecuteSelectedOption(string option, int menuState);
-
-    /*
-    public int getNumber()
-    {
-        return number;
-    }
-    */
+    public abstract int ExecuteSelectedOption(string option, int menuState, MessageTicket ticket);
 }

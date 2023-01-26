@@ -13,20 +13,20 @@ public abstract class AbstractTicket
         this.arrivalPlace = arrivalPlace;
     }
 
-    public char GetArrivalPlace()
-    {
-        return arrivalPlace;
-    }
-    
-    public char GetDeparturePlace()
-    {
-        return departurePlace;
-    }
-
-    public TimeOnly GetTime()
-    {
-        return startTime;
-    }
+    // public char GetArrivalPlace()
+    // {
+    //     return arrivalPlace;
+    // }
+    //
+    // public char GetDeparturePlace()
+    // {
+    //     return departurePlace;
+    // }
+    //
+    // public TimeOnly GetTime()
+    // {
+    //     return startTime;
+    // }
 
     public abstract void Print();
 }

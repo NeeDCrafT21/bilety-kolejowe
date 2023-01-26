@@ -9,7 +9,7 @@ class Program
         if (args.Length > 0)
         {
             using (PipeStream pipeClient =
-                   new AnonymousPipeClientStream(PipeDirection.In, args[0]))
+                   new NamedPipeClientStream("ticketpipe"))
             {
                 Console.WriteLine("[CLIENT] Current TransmissionMode: {0}.",
                     pipeClient.TransmissionMode);
