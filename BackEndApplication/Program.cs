@@ -7,8 +7,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        var server = new NamedPipeServerStream("PipesOfPiece");
-        server.WaitForConnection();
+        var server = new NamedPipeClientStream("ticketpipe");
+        server.Connect();
         StreamReader reader = new StreamReader(server);
         StreamWriter writer = new StreamWriter(server);
         

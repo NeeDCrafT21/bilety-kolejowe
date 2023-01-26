@@ -65,6 +65,7 @@ public class RunApplication
                     {
                         var message = JsonSerializer.Serialize(ticket);
                         sender.SendTicketInfo(message);
+                        Console.Clear();
                     }
                     else
                         Console.WriteLine("| Miasta wyjazdu i przyjazdu nie mogą być takie same |"); 

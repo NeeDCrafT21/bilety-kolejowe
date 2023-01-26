@@ -21,7 +21,9 @@ public class PipeServer
                 pipeServer.TransmissionMode);
 
             // Pass the client process a handle to the server.
-            pipeClient.StartInfo.UseShellExecute = false;
+            pipeClient.StartInfo.UseShellExecute = true;
+            pipeClient.StartInfo.CreateNoWindow = false;
+            pipeClient.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             pipeClient.Start();
 
             pipeServer.WaitForConnection();
