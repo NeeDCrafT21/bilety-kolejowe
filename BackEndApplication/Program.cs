@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using BackEndApplication;
 
 
@@ -21,11 +23,10 @@ class Program
         C.SetTable(tempC());
 
         //TODO dane przesłane
-        TimeOnly startTime = new TimeOnly(20,0);
+        TimeOnly startTime = new TimeOnly(7,0);
 
-        MessageTicket ticket = new MessageTicket(startTime,'A','B');//dodać do Ticket TimeSpan
+        MessageTicket ticket = new MessageTicket(startTime,'C','B');//dodać do Ticket TimeSpan
         //koniec przesłanych danych
-        
         ticket.Print();
 
         Calculator mill = new Calculator(ticket, A, B, C);
@@ -33,6 +34,21 @@ class Program
         MessageTicket2 tickets = mill.FindRoute();
         
         tickets.Print();
+        
+        //Console.WriteLine(RuntimeInformation.IsOSPlatform(OSPlatform.OSX));
+        //Windows - .exe, Linux - None, OSX - .app
 
+        /*Process pipeClient = new Process();
+        
+        pipeClient.StartInfo.UseShellExecute = true;
+        pipeClient.StartInfo.CreateNoWindow = false;
+        pipeClient.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+
+        var filepath = AppDomain.CurrentDomain.BaseDirectory.Replace("BackEndApplication\\bin\\Debug\\net6.0\\","UserApplication\\bin\\Debug\\net6.0\\UserApplication.exe");
+        Console.WriteLine(filepath);
+        pipeClient.StartInfo.FileName = filepath;
+        pipeClient.Start();
+        
+        string x = Console.ReadLine();*/
     }
 }
