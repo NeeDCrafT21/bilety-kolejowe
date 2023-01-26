@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.InteropServices;
+﻿using System.IO.Pipes;
 using BackEndApplication;
 
 
@@ -9,32 +6,60 @@ class Program
 {
     static void Main(string[] args)
     {
-        //filling time tables
-        TimeTable A = new TimeTable('A');
-        TimeTable B = new TimeTable('B');
-        TimeTable C = new TimeTable('C');
+        if (args.Length > 0)
+        {
+            using (PipeStream pipeClient =
+                   new AnonymousPipeClientStream(PipeDirection.In, args[0]))
+            {
+                Console.WriteLine("[CLIENT] Current TransmissionMode: {0}.",
+                    pipeClient.TransmissionMode);
 
-        var (taskA, taskB, taskC) = (A.GenerateTable(), B.GenerateTable(), C.GenerateTable());
-        var tempA = (async () => await taskA);
-        A.SetTable(tempA());
-        var tempB = (async () => await taskB);
-        B.SetTable(tempB());
-        var tempC = (async () => await taskC);
-        C.SetTable(tempC());
+                using (StreamReader sr = new StreamReader(pipeClient))
+                {
+                    // Display the read text to the console
+                    string temp;
 
-        //TODO dane przesłane
-        TimeOnly startTime = new TimeOnly(7,0);
+                    // Wait for 'sync message' from the server.
+                    do
+                    {
+                        Console.WriteLine("[CLIENT] Wait for sync...");
+                        temp = sr.ReadLine();
+                    }
+                    while (!temp.StartsWith("SYNC"));
 
-        MessageTicket ticket = new MessageTicket(startTime,'C','B');//dodać do Ticket TimeSpan
-        //koniec przesłanych danych
-        ticket.Print();
+                    // Read the server data and echo to the console.
+                    while ((temp = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine("[CLIENT] Echo: " + temp);
+                    }
+                    /*//filling time tables
+                    TimeTable A = new TimeTable('A');
+                    TimeTable B = new TimeTable('B');
+                    TimeTable C = new TimeTable('C');
 
-        Calculator mill = new Calculator(ticket, A, B, C);
+                    var (taskA, taskB, taskC) = (A.GenerateTable(), B.GenerateTable(), C.GenerateTable());
+                    var tempA = (async () => await taskA);
+                    A.SetTable(tempA());
+                    var tempB = (async () => await taskB);
+                    B.SetTable(tempB());
+                    var tempC = (async () => await taskC);
+                    C.SetTable(tempC());
 
-        MessageTicket2 tickets = mill.FindRoute();
-        
-        tickets.Print();
-        
+                    //TODO dane przesłane
+                    TimeOnly startTime = new TimeOnly(7, 0);
+
+                    MessageTicket ticket = new MessageTicket(startTime, 'C', 'B'); //dodać do Ticket TimeSpan
+                    //koniec przesłanych danych
+                    ticket.Print();
+
+                    Calculator mill = new Calculator(ticket, A, B, C);
+
+                    MessageTicket2 tickets = mill.FindRoute();
+
+                    tickets.Print();*/
+                }
+            }
+        }
         //Console.WriteLine(RuntimeInformation.IsOSPlatform(OSPlatform.OSX));
         //Windows - .exe, Linux - None, OSX - .app
 
@@ -48,7 +73,8 @@ class Program
         Console.WriteLine(filepath);
         pipeClient.StartInfo.FileName = filepath;
         pipeClient.Start();
-        
-        string x = Console.ReadLine();*/
+        */
+        Console.ReadLine();
+
     }
 }
