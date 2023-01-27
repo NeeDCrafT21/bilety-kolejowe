@@ -15,6 +15,7 @@ public class RunApplication
     private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
     private MessageTicket ticket = new MessageTicket(DateTime.Now.Hour, DateTime.Now.Minute, 'A', 'B');
+    private MessageTicket2 trainInfo;
     private PipeServer sender = new PipeServer();
 
     public string ChooseMenuOption()
@@ -32,7 +33,7 @@ public class RunApplication
             switch (menuState)
             { 
                 case 0:
-                    Console.WriteLine($"Godzina wyjazdu: {ticket.startHour}:{ticket.startMinute}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
+                    Console.WriteLine($"Godzina wyjazdu: {((int)(ticket.startHour / 10) != 0 ? ticket.startHour : "0" + ticket.startHour.ToString())}:{((int)(ticket.startMinute / 10) != 0 ? ticket.startMinute : "0" + ticket.startMinute.ToString())}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
                     mainMenuScreen.DrawMenuOptions();
                     option = ChooseMenuOption();
                     menuState = mainMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
@@ -65,6 +66,7 @@ public class RunApplication
                     {
                         var message = JsonSerializer.Serialize(ticket);
                         sender.SendTicketInfo(message);
+                        trainInfo = sender.trainInfo;
                         Console.Clear();
                     }
                     else

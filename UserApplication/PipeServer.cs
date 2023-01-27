@@ -1,4 +1,6 @@
-﻿namespace UserApplication;
+﻿using System.Text.Json;
+
+namespace UserApplication;
 
 using System;
 using System.IO;
@@ -7,7 +9,9 @@ using System.Diagnostics;
 
 public class PipeServer
 {
-    public void SendTicketInfo(string message)
+    public MessageTicket2 trainInfo { get; set; }
+    
+    public void SendTicketInfo(string sendMessage)
     {
         Process pipeClient = new Process();
 
@@ -31,8 +35,11 @@ public class PipeServer
             StreamReader reader = new StreamReader(pipeServer);
             StreamWriter writer = new StreamWriter(pipeServer);
 
-            writer.WriteLine(message);
+            writer.WriteLine(sendMessage);
             writer.Flush();
+
+            var returnMessage = reader.ReadLine();
+            trainInfo = JsonSerializer.Deserialize<MessageTicket2>(returnMessage);
 
             // try
             // {
