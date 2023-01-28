@@ -1,26 +1,32 @@
 ﻿namespace UserApplication;
 
-public class ChooseTimeMenuScreen : AbstractMenuScreen
+public class ChooseTimeMenuScreen : AbstractMenuScreen<MessageTicket>
 {
     private Boolean choseMinutes = false;
     private int hour;
     private int minute;
     private List<string> menuOptions = new List<string>()
     {
-        $"Wprowadź godzinę [HH] twojej podróży:", "Wprowadź minuty [MM] twojej podróży:", "Wróć"
+        $"Wprowadź godzinę twojej podróży:", "Wprowadź minuty twojej podróży:", "Wróć"
     };
 
-    public override void DrawMenuOptions()
+    public override void DrawMenuOptions(MessageTicket ticket)
     {
-        if(!choseMinutes)
+        if (!choseMinutes)
+        {
+            Console.WriteLine($"Wprowadzanie godziny: [HH]:{((ticket.startMinute / 10) != 0 ? ticket.startMinute : "0" + ticket.startMinute.ToString())}");
             Console.WriteLine($"{menuOptions[0]}");
+        }
         else
+        {
+            Console.WriteLine($"Wprowadzanie godziny: {((ticket.startHour / 10) != 0 ? ticket.startHour : "0" + ticket.startHour.ToString())}:[MM]");
             Console.WriteLine($"{menuOptions[1]}");
+        }
         int i;
         for (i = 2; i < menuOptions.Count; i++)
         {
             if(menuOptions[i] == "Wróć" || menuOptions[i] == "Wyjdź")
-                Console.WriteLine($"{0}. {menuOptions[i]}");
+                Console.WriteLine($"q. {menuOptions[i]}");
             else
                 Console.WriteLine($"{i-1}. {menuOptions[i]}");
         }
@@ -28,6 +34,8 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen
     
     public override int ExecuteSelectedOption(string option, int menuState, MessageTicket ticket)
     {
+        if (option == "q")
+            return 0;
         if (!choseMinutes)
         {
             Console.WriteLine($"Godzina [HH]:{ticket.startMinute}");

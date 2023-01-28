@@ -1,10 +1,10 @@
 ﻿namespace UserApplication;
 
-public abstract class AbstractMenuScreen
+public abstract class AbstractMenuScreen<T>
 {
     //private int number { get; }
     //public List<string> _menuOptions { get; }
-
-    public abstract void DrawMenuOptions();
-    public abstract int ExecuteSelectedOption(string option, int menuState, MessageTicket ticket);
+    
+    public abstract void DrawMenuOptions(T ticket);
+    public abstract int ExecuteSelectedOption(string option, int menuState, T ticket);
 }
