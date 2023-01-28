@@ -2,27 +2,23 @@
 
 public class Ticket : AbstractTicket
 {
-    private TimeOnly startTime;
+    public int startHour { get; set; }
+    public int startMinute { get; set; }
+    
     private TimeSpan duration;
-    public Ticket(TimeOnly startTime, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
+    public Ticket(int startHour, int startMinute, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
     {
-        this.startTime = startTime;
+        this.startHour = startHour;
+        this.startMinute = startMinute;
         this.duration = duration;
     }
     
-    public TimeSpan GetDuration()
-    {
-        return duration;
-    }
-    public TimeOnly GetTime()
-    {
-        return startTime;
-    }
 
     public override void Print()
     {
         Console.WriteLine("\nBilet1");
-        Console.WriteLine("Przejazd o godzinie "+startTime+" z "+ departurePlace+" do "+arrivalPlace+", będzie trwał "+duration+"."); 
-        Console.WriteLine("Pociąg dojedzie na miejsce o godzinie "+startTime.Add(duration)+".");
+        Console.WriteLine("Przejazd o godzinie "+startHour+":"+startMinute+" z "+ departurePlace+" do "+arrivalPlace+", będzie trwał "+duration+".");
+        TimeOnly arrival = new TimeOnly(startHour, startMinute);
+        Console.WriteLine("Pociąg dojedzie na miejsce o godzinie "+arrival.Add(duration)+".");
     }
 }

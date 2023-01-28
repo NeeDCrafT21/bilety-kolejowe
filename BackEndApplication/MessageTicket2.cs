@@ -3,21 +3,19 @@
 [Message(messageType = "leaving")]
 public class MessageTicket2
 {
-    private List<AbstractTicket> message;
+    public Ticket ticket { get; set; }
 
-    public MessageTicket2(List<AbstractTicket> message)
+    public TicketAdvanced ticketAdvanced { get; set; }
+
+    public MessageTicket2(Ticket ticket, TicketAdvanced ticketAdvanced)
     {
-        this.message = message;
+        this.ticket = ticket;
+        this.ticketAdvanced = ticketAdvanced;
     }
-
-    public List<AbstractTicket> getMessage()
-    {
-        return message;
-    }
-
+    
     public void Print()
     {
-        message[0].Print();
-        message[1].Print();
+        ticket.Print();
+        ticketAdvanced.Print();
     }
 }

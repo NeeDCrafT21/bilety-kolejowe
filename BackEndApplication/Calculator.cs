@@ -67,16 +67,16 @@ public class Calculator
         }
         
         List<AbstractTicket> temp = new List<AbstractTicket>();
-        AbstractTicket temp1 = new Ticket(ride1.getTime(),ticket.GetDeparturePlace(),ticket.GetArrivalPlace(),ride1.getDuration());
+        AbstractTicket temp1 = new Ticket(ride1.getTime().Hour,ride1.getTime().Minute,ticket.GetDeparturePlace(),ticket.GetArrivalPlace(),ride1.getDuration());
         int hour = ride2.getTime().Hour;
         int minute = ride2.getTime().Minute;
-        AbstractTicket temp2 = new TicketAdvanced(hour, minute,ticket.GetDeparturePlace(),ride2.getDestination(),ride2.getDuration(),ride3.getTime(),tables[j].GetCity(),ticket.GetArrivalPlace(), ride3.getDuration());
+        AbstractTicket temp2 = new TicketAdvanced(hour, minute,ticket.GetDeparturePlace(),ride2.getDestination(),ride2.getDuration(),ride3.getTime().Hour,ride3.getTime().Minute,tables[j].GetCity(),ticket.GetArrivalPlace(), ride3.getDuration());
         
         
         temp.Add(temp1);
         temp.Add(temp2);
 
-        MessageTicket2 message = new MessageTicket2(temp);
+        MessageTicket2 message = new MessageTicket2((Ticket)temp[0],(TicketAdvanced)temp[1]);
         output = message;
         
         return message;

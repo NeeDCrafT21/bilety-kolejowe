@@ -42,7 +42,10 @@ class Program
 
             tickets.Print();
 
-            var message2 = JsonSerializer.Serialize(tickets);
+            string message2 = JsonSerializer.Serialize(tickets);
+
+            Console.WriteLine("Wiadomość: "+message2);
+
             writer.WriteLine(message2);
             writer.Flush();
 
