@@ -37,8 +37,12 @@ public class PipeServer
 
             writer.WriteLine(sendMessage);
             writer.Flush();
+            
+            //Thread.Sleep(2000);
 
             var returnMessage = reader.ReadLine();
+            Console.WriteLine($"Czytam returnMessage...\n{returnMessage}");
+            
             trainInfo = JsonSerializer.Deserialize<MessageTicket2>(returnMessage);
 
             // try
