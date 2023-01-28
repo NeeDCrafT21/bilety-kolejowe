@@ -14,6 +14,6 @@ public class MessageTicket : AbstractTicket
     
     public override void Print()
     {
-        Console.WriteLine("\n\nSzukam przejazdu z "+departurePlace+" do "+arrivalPlace+" od godziny "+startHour+":"+startMinute+".\n");
+        Console.WriteLine("Szukam przejazdu z "+departurePlace+" do "+arrivalPlace+" od godziny "+startHour+":"+startMinute+".\n");
     }
 }

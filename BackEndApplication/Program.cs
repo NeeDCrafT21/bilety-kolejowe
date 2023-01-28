@@ -7,13 +7,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        var server = new NamedPipeClientStream("ticketpipe");
-        server.Connect();
-        StreamReader reader = new StreamReader(server);
-        StreamWriter writer = new StreamWriter(server);
-        
-        var message = reader.ReadLine();
-        
         TimeTable A = new TimeTable('A');
         TimeTable B = new TimeTable('B');
         TimeTable C = new TimeTable('C');
@@ -25,7 +18,13 @@ class Program
         B.SetTable(tempB());
         var tempC = (async () => await taskC);
         C.SetTable(tempC());
-            
+        
+        var server = new NamedPipeClientStream("ticketpipe");
+        server.Connect();
+        StreamReader reader = new StreamReader(server);
+        StreamWriter writer = new StreamWriter(server);
+                
+        var message = reader.ReadLine();    
 
         MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
             
@@ -39,10 +38,9 @@ class Program
 
         string message2 = JsonSerializer.Serialize(tickets);
 
-        Console.WriteLine("Wiadomość: "+message2);
+        Console.WriteLine("\nWiadomość: "+message2);
 
         writer.WriteLine(message2);
         writer.Flush();
-
     }
 }
