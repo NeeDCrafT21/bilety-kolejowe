@@ -4,7 +4,6 @@
 public class MessageTicket2
 {
     public Ticket ticket { get; set; }
-
     public TicketAdvanced ticketAdvanced { get; set; }
 
     public MessageTicket2(Ticket ticket, TicketAdvanced ticketAdvanced)

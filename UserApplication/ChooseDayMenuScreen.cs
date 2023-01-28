@@ -1,13 +1,13 @@
 ﻿namespace UserApplication;
 
-public class ChooseDayMenuScreen : AbstractMenuScreen
+public class ChooseDayMenuScreen : AbstractMenuScreen<MessageTicket>
 {
     private List<string> menuOptions = new List<string>()
     {
         "Wybierz dzień tygodnia twojej podróży:", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela", "Wróć"
     };
 
-    public override void DrawMenuOptions()
+    public override void DrawMenuOptions(MessageTicket ticket)
     {
         Console.WriteLine($"{menuOptions[0]}");
         int i;

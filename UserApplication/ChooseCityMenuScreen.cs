@@ -1,6 +1,6 @@
 ﻿namespace UserApplication;
 
-public class ChooseCityMenuScreen : AbstractMenuScreen
+public class ChooseCityMenuScreen : AbstractMenuScreen<MessageTicket>
 {
     private Boolean choseArrivalPlace = false;
     private char departurePlace;
@@ -10,8 +10,9 @@ public class ChooseCityMenuScreen : AbstractMenuScreen
         "Wybierz miasto startowe:", "Wybierz miasto docelowe:", "Miasto A", "Miasto B", "Miasto C", "Wróć"
     };
 
-    public override void DrawMenuOptions()
+    public override void DrawMenuOptions(MessageTicket ticket)
     {
+        Console.WriteLine($"Aktualna trasa: z {ticket.departurePlace} do {ticket.arrivalPlace}");
         if(!choseArrivalPlace)
             Console.WriteLine($"{menuOptions[0]}");
         else
