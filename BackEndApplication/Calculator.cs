@@ -17,16 +17,16 @@ public class Calculator
     
     public MessageTicket2 FindRoute()
     {
-        int i = tables.FindIndex(a => a.GetCity() == ticket.GetDeparturePlace());
-        int j = tables.FindIndex(a => a.GetCity() != ticket.GetArrivalPlace() && a.GetCity() != ticket.GetDeparturePlace());
+        int i = tables.FindIndex(a => a.GetCity() == ticket.departurePlace);
+        int j = tables.FindIndex(a => a.GetCity() != ticket.arrivalPlace && a.GetCity() != ticket.departurePlace);
         
         //find closest ride without train change
         TimeOnly ticketTime = new TimeOnly(ticket.startHour, ticket.startMinute);
         Ride<TimeOnly> ride1 = tables[i].GetRides().SkipWhile(p=> 
-            p.getTime() <= ticketTime || p.getDestination() != ticket.GetArrivalPlace()).FirstOrDefault();
+            p.getTime() <= ticketTime || p.getDestination() != ticket.arrivalPlace).FirstOrDefault();
         if(ride1 == null)
         {
-            if (tables[i].GetRides()[0].getDestination() == ticket.GetArrivalPlace())
+            if (tables[i].GetRides()[0].getDestination() == ticket.arrivalPlace)
             {
                 ride1 = tables[i].GetRides()[0];
             }
@@ -52,11 +52,11 @@ public class Calculator
         }
         
         Ride<TimeOnly> ride3 = tables[j].GetRides().SkipWhile(p=> 
-            p.getTime() <= ride2.getTime().Add(ride2.getDuration()) || p.getDestination() != ticket.GetArrivalPlace()).FirstOrDefault();
+            p.getTime() <= ride2.getTime().Add(ride2.getDuration()) || p.getDestination() != ticket.arrivalPlace).FirstOrDefault();
         
         if (ride3 == null)
         {
-            if (tables[j].GetRides()[0].getDestination() == ticket.GetArrivalPlace())
+            if (tables[j].GetRides()[0].getDestination() == ticket.arrivalPlace)
             {
                 ride3 = tables[j].GetRides()[0];
             }
@@ -67,18 +67,15 @@ public class Calculator
         }
         
         List<AbstractTicket> temp = new List<AbstractTicket>();
-        AbstractTicket temp1 = new Ticket(ride1.getTime().Hour,ride1.getTime().Minute,ticket.GetDeparturePlace(),ticket.GetArrivalPlace(),ride1.getDuration());
-        int hour = ride2.getTime().Hour;
-        int minute = ride2.getTime().Minute;
-        AbstractTicket temp2 = new TicketAdvanced(hour, minute,ticket.GetDeparturePlace(),ride2.getDestination(),ride2.getDuration(),ride3.getTime().Hour,ride3.getTime().Minute,tables[j].GetCity(),ticket.GetArrivalPlace(), ride3.getDuration());
+        AbstractTicket temp1 = new Ticket(ride1.getTime(),ticket.departurePlace,ticket.arrivalPlace,ride1.getDuration());
+        AbstractTicket temp2 = new TicketAdvanced(ride2.getTime(),ticket.departurePlace,ride2.getDestination(),ride2.getDuration(),ride3.getTime(),tables[j].GetCity(),ticket.arrivalPlace, ride3.getDuration());
         
         
         temp.Add(temp1);
         temp.Add(temp2);
 
-        MessageTicket2 message = new MessageTicket2((Ticket)temp[0],(TicketAdvanced)temp[1]);
-        output = message;
-        
-        return message;
+        output = new MessageTicket2((Ticket)temp[0],(TicketAdvanced)temp[1]);
+
+        return output;
     }
 }

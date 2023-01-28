@@ -1,15 +1,18 @@
 ﻿namespace BackEndApplication;
 
+[Serializable()]
 public class Ticket : AbstractTicket
 {
+    [NonSerialized()] public TimeOnly startTime;
     public int startHour { get; set; }
     public int startMinute { get; set; }
     
-    private TimeSpan duration;
-    public Ticket(int startHour, int startMinute, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
+    public TimeSpan duration { get; set; }
+    public Ticket(TimeOnly startTime, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
     {
-        this.startHour = startHour;
-        this.startMinute = startMinute;
+        this.startTime = startTime;
+        startHour = startTime.Hour;
+        startMinute = startTime.Minute;
         this.duration = duration;
     }
     
@@ -17,8 +20,7 @@ public class Ticket : AbstractTicket
     public override void Print()
     {
         Console.WriteLine("\nBilet1");
-        Console.WriteLine("Przejazd o godzinie "+startHour+":"+startMinute+" z "+ departurePlace+" do "+arrivalPlace+", będzie trwał "+duration+".");
-        TimeOnly arrival = new TimeOnly(startHour, startMinute);
-        Console.WriteLine("Pociąg dojedzie na miejsce o godzinie "+arrival.Add(duration)+".");
+        Console.WriteLine("Przejazd o godzinie "+startTime+" z "+ departurePlace+" do "+arrivalPlace+", będzie trwał "+duration+".");
+        Console.WriteLine("Pociąg dojedzie na miejsce o godzinie "+startTime.Add(duration)+".");
     }
 }

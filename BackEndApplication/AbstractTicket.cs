@@ -10,15 +10,5 @@ protected AbstractTicket(char departurePlace, char arrivalPlace)
     this.departurePlace = departurePlace;
     this.arrivalPlace = arrivalPlace;
 }
-    public char GetArrivalPlace()
-    {
-        return arrivalPlace;
-    }
-    
-    public char GetDeparturePlace()
-    {
-        return departurePlace;
-    }
-
-    public abstract void Print();
+public abstract void Print();
 }

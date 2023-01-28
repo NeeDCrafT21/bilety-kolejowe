@@ -26,12 +26,8 @@ class Program
             B.SetTable(tempB());
             var tempC = (async () => await taskC);
             C.SetTable(tempC());
+            
 
-            
-            /* Struktura do testowania dzialania programu bez komunikacji
-            TimeOnly startTime = new TimeOnly(8, 20);
-            MessageTicket ticket = new MessageTicket(startTime, 'C', 'A');*/
-            
             MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
             
             ticket.Print();
