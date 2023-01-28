@@ -3,16 +3,16 @@
 [Serializable()]
 public class Ticket : AbstractTicket
 {
-    [NonSerialized()] public TimeOnly startTime = new TimeOnly();
+    [NonSerialized()] public TimeOnly startTime;
     public int startHour { get; set; }
     public int startMinute { get; set; }
     
     public TimeSpan duration { get; set; }
-    public Ticket(int startHour, int startMinute, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
+    public Ticket(TimeOnly startTime, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
     {
-        this.startHour = startHour;
-        this.startMinute = startMinute;
-        startTime = new TimeOnly(startHour, startMinute);
+        this.startTime = startTime;
+        startHour = startTime.Hour;
+        startMinute = startTime.Minute;
         this.duration = duration;
     }
     

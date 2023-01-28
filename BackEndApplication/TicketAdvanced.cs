@@ -3,11 +3,11 @@
 [Serializable()]
 public class TicketAdvanced : AbstractTicket
 {
-    [NonSerialized()] public TimeOnly startTime = new TimeOnly();
+    [NonSerialized()] public TimeOnly startTime;
     public int startHour { get; set; }
     public int startMinute { get; set; }
 
-    [NonSerialized()] public TimeOnly startTime2 = new TimeOnly();
+    [NonSerialized()] public TimeOnly startTime2;
     
     public int startHour2 { get; set; }
     public int startMinute2 { get; set; }
@@ -16,16 +16,16 @@ public class TicketAdvanced : AbstractTicket
     public TimeSpan partialDuration{ get; set; }
     public TimeSpan duration{ get; set; }
     
-    public TicketAdvanced(int startHour, int startMinute, char departurePlace, char arrivalPlace, TimeSpan partialDuration, int startHour2, int startMinute2,char departurePlace2, char arrivalPlace2, TimeSpan duration ) : base(departurePlace, arrivalPlace)
+    public TicketAdvanced(TimeOnly startTime, char departurePlace, char arrivalPlace, TimeSpan partialDuration, TimeOnly startTime2,char departurePlace2, char arrivalPlace2, TimeSpan duration ) : base(departurePlace, arrivalPlace)
     {
-        this.startHour = startHour;
-        this.startMinute = startMinute;
-        startTime = new TimeOnly(startHour, startMinute);
+        this.startTime = startTime;
+        startHour = startTime.Hour;
+        startMinute = startTime.Minute;
         this.partialDuration = partialDuration;
         
-        this.startHour2 = startHour2;
-        this.startMinute2 = startMinute2;
-        startTime2 = new TimeOnly(startHour2, startMinute2);
+        this.startTime2 = startTime2;
+        startHour2 = startTime2.Hour;
+        startMinute2 = startTime2.Minute;
         this.departurePlace2 = departurePlace2;
         this.arrivalPlace2 = arrivalPlace2;
         

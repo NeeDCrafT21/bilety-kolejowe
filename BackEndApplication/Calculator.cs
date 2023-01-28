@@ -67,8 +67,8 @@ public class Calculator
         }
         
         List<AbstractTicket> temp = new List<AbstractTicket>();
-        AbstractTicket temp1 = new Ticket(ride1.getTime().Hour,ride1.getTime().Minute,ticket.departurePlace,ticket.arrivalPlace,ride1.getDuration());
-        AbstractTicket temp2 = new TicketAdvanced(ride2.getTime().Hour, ride2.getTime().Minute,ticket.departurePlace,ride2.getDestination(),ride2.getDuration(),ride3.getTime().Hour,ride3.getTime().Minute,tables[j].GetCity(),ticket.arrivalPlace, ride3.getDuration());
+        AbstractTicket temp1 = new Ticket(ride1.getTime(),ticket.departurePlace,ticket.arrivalPlace,ride1.getDuration());
+        AbstractTicket temp2 = new TicketAdvanced(ride2.getTime(),ticket.departurePlace,ride2.getDestination(),ride2.getDuration(),ride3.getTime(),tables[j].GetCity(),ticket.arrivalPlace, ride3.getDuration());
         
         
         temp.Add(temp1);
