@@ -2,6 +2,7 @@
 
 public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
 {
+    private double ticketPrice;
     public List<string> menuOptions = new List<string>()
     {
         "Wybierz swój pociąg:", "Wyjdź"
@@ -43,5 +44,10 @@ public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
                 Console.WriteLine("| Wybierz poprawną opcję |"); 
                 return menuState;
         }
+    }
+
+    public void CountTicketPrice()
+    {
+        
     }
 }

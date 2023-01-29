@@ -16,7 +16,7 @@ public class RunApplication
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
     private SelectTrainScreen selectTrainScreen = new SelectTrainScreen();
     private MessageTicket ticket = new MessageTicket(DateTime.Now.Hour, DateTime.Now.Minute, 'A', 'B');
-    private List<AbstractTicket> ticketList = new List<AbstractTicket>();
+    private List<AbstractTicket> ticketList= new List<AbstractTicket>();
     private PipeServer sender = new PipeServer();
 
     public string ChooseMenuOption()
@@ -26,7 +26,7 @@ public class RunApplication
         return option;
     }
 
-    public async void RunApp()
+    public void RunApp()
     {
         menuState = 0;
         while (run)
@@ -34,6 +34,7 @@ public class RunApplication
             switch (menuState)
             { 
                 case 0:
+                    ticketList.Clear();
                     mainMenuScreen.DrawMenuOptions(ticket);
                     option = ChooseMenuOption();
                     menuState = mainMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
@@ -65,7 +66,7 @@ public class RunApplication
                     if (ticket.departurePlace != ticket.arrivalPlace)
                     {
                         var message = JsonSerializer.Serialize(ticket);
-                        var temp = (async () => await sender.SendTicketInfo(message));
+                        var temp = async () => await sender.SendTicketInfo(message);
                         ticketList = temp().Result;
                         menuState = 5;
                         Console.Clear();
