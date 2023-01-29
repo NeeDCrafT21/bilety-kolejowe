@@ -41,16 +41,16 @@ public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
         switch (option)
         {
             case "1":
-                selectedDiscount = (int)Discounts.Brak;
+                selectedDiscount = (double)Discounts.Brak;
                 return 7;
             case "2":
-                selectedDiscount = (int)Discounts.Student / 100;
+                selectedDiscount = (double)Discounts.Student / 100;
                 return 7;
             case "3":
-                selectedDiscount = (int)Discounts.Emeryt / 100;
+                selectedDiscount = (double)Discounts.Emeryt / 100;
                 return 7;
             case "4":
-                selectedDiscount = (int)Discounts.Niepelnosprawny / 100;
+                selectedDiscount = (double)Discounts.Niepelnosprawny / 100;
                 return 7;
             case "0":
                 return 5;

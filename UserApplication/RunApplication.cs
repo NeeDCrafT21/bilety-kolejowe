@@ -17,6 +17,7 @@ public class RunApplication
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
     private SelectTrainScreen selectTrainScreen = new SelectTrainScreen();
     private SelectDiscountScreen selectDiscountScreen = new SelectDiscountScreen();
+    private FinalScreen finalScreen = new FinalScreen();
     private MessageTicket ticket = new MessageTicket(DateTime.Now.Hour, DateTime.Now.Minute, 'A', 'B');
     private List<AbstractTicket> ticketList= new List<AbstractTicket>();
     private PipeServer sender = new PipeServer();
@@ -98,6 +99,16 @@ public class RunApplication
                     Console.Clear();
                     break;
                 case 7:
+                    finalScreen.isTransferTrain = selectTrainScreen.isTransferTrain;
+                    if (!finalScreen.isTransferTrain)
+                        finalScreen.ticketPrice = selectTrainScreen.ticketPrice1;
+                    else
+                        finalScreen.ticketPrice = selectTrainScreen.ticketPrice2;
+                    finalScreen.discount = selectDiscountScreen.selectedDiscount;
+                    finalScreen.DrawMenuOptions(ticketList);
+                    option = ChooseMenuOption();
+                    menuState = finalScreen.ExecuteSelectedOption(option, menuState, ticketList);
+                    Console.Clear();
                     break;
             }
         }
