@@ -6,7 +6,6 @@ public class Ticket : AbstractTicket
     [NonSerialized()] public TimeOnly startTime;
     public int startHour { get; set; }
     public int startMinute { get; set; }
-    
     public TimeSpan duration { get; set; }
     public Ticket(TimeOnly startTime, char departurePlace, char arrivalPlace, TimeSpan duration) : base(departurePlace, arrivalPlace)
     {
