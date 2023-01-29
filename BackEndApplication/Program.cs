@@ -19,28 +19,31 @@ class Program
         B.SetTable(tempB());
         C.SetTable(tempC());
         
-        var server = new NamedPipeClientStream("ticketpipe");
-        server.Connect();
-        StreamReader reader = new StreamReader(server);
-        StreamWriter writer = new StreamWriter(server);
-                
-        var message = reader.ReadLine();    
+        while (true)
+        {
+            var server = new NamedPipeClientStream("ticketpipe");
+            server.Connect();
+            StreamReader reader = new StreamReader(server);
+            StreamWriter writer = new StreamWriter(server);
+            var message = reader.ReadLine();
 
-        MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
-            
-        ticket.Print();
+            MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
 
-        Calculator mill = new Calculator(ticket, A, B, C);
+            ticket.Print();
 
-        MessageTicket2 tickets = mill.FindRoute();
+            Calculator mill = new Calculator(ticket, A, B, C);
 
-        tickets.Print();
+            MessageTicket2 tickets = mill.FindRoute();
 
-        string message2 = JsonSerializer.Serialize(tickets);
+            tickets.Print();
 
-        Console.WriteLine("\nWiadomość: "+message2);
+            string message2 = JsonSerializer.Serialize(tickets);
 
-        writer.WriteLine(message2);
-        writer.Flush();
+            Console.WriteLine("\nWiadomość: " + message2);
+
+            writer.WriteLine(message2);
+            writer.Flush();
+            server.Close();
+        }
     }
 }
