@@ -13,10 +13,10 @@ class Program
 
         var (taskA, taskB, taskC) = (A.GenerateTable(), B.GenerateTable(), C.GenerateTable());
         var tempA = (async () => await taskA);
-        A.SetTable(tempA());
         var tempB = (async () => await taskB);
-        B.SetTable(tempB());
         var tempC = (async () => await taskC);
+        A.SetTable(tempA());
+        B.SetTable(tempB());
         C.SetTable(tempC());
         
         var server = new NamedPipeClientStream("ticketpipe");
