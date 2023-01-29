@@ -18,32 +18,44 @@ class Program
         A.SetTable(tempA());
         B.SetTable(tempB());
         C.SetTable(tempC());
-        
+
         while (true)
         {
-            var server = new NamedPipeClientStream("ticketpipe");
-            server.Connect();
-            StreamReader reader = new StreamReader(server);
-            StreamWriter writer = new StreamWriter(server);
-            var message = reader.ReadLine();
+            CancellationToken cancellationToken = new CancellationToken();
+            using (var server = new NamedPipeClientStream("ticketpipe"))
+            {
+                MessageTicket ticket = new MessageTicket(0,0,'A','B');
+                server.Connect();
+                StreamReader reader = new StreamReader(server);
+                StreamWriter writer = new StreamWriter(server);
+                var message = reader.ReadLine();
+                try
+                {
+                    ticket = JsonSerializer.Deserialize<MessageTicket>(message);
+                }
+                catch (System.ArgumentNullException e)
+                {
+                    Console.Clear();
+                    server.Dispose();
+                    return;
+                }
 
-            MessageTicket ticket = JsonSerializer.Deserialize<MessageTicket>(message);
+                ticket.Print();
 
-            ticket.Print();
+                Calculator mill = new Calculator(ticket, A, B, C);
 
-            Calculator mill = new Calculator(ticket, A, B, C);
+                MessageTicket2 tickets = mill.FindRoute();
 
-            MessageTicket2 tickets = mill.FindRoute();
+                tickets.Print();
 
-            tickets.Print();
+                string message2 = JsonSerializer.Serialize(tickets);
 
-            string message2 = JsonSerializer.Serialize(tickets);
+                Console.WriteLine("\nWiadomość: " + message2);
 
-            Console.WriteLine("\nWiadomość: " + message2);
-
-            writer.WriteLine(message2);
-            writer.Flush();
-            server.Close();
+                writer.WriteLine(message2);
+                writer.Flush();
+                server.Close();
+            }
         }
     }
 }
