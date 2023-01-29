@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.IO.Pipes;
+using System.Text.Json;
 
 namespace UserApplication;
 
@@ -15,6 +16,7 @@ public class RunApplication
     private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
     private SelectTrainScreen selectTrainScreen = new SelectTrainScreen();
+    private SelectDiscountScreen selectDiscountScreen = new SelectDiscountScreen();
     private MessageTicket ticket = new MessageTicket(DateTime.Now.Hour, DateTime.Now.Minute, 'A', 'B');
     private List<AbstractTicket> ticketList= new List<AbstractTicket>();
     private PipeServer sender = new PipeServer();
@@ -33,13 +35,19 @@ public class RunApplication
         {
             switch (menuState)
             { 
+                case -1:
+                    run = false;
+                    using (NamedPipeServerStream pipeServer =
+                           new NamedPipeServerStream("ticketpipe"))
+                    {
+                        pipeServer.WaitForConnection();
+                    }
+                    break;
                 case 0:
                     ticketList.Clear();
                     mainMenuScreen.DrawMenuOptions(ticket);
                     option = ChooseMenuOption();
                     menuState = mainMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
-                    if (menuState == -1)
-                        run = false;
                     chooseCityMenuScreen.ResetChoiceState();
                     chooseTimeMenuScreen.ResetChoiceState();
                     Console.Clear();
@@ -84,6 +92,12 @@ public class RunApplication
                     Console.Clear();
                     break;
                 case 6:
+                    selectDiscountScreen.DrawMenuOptions(ticketList); 
+                    option = ChooseMenuOption();
+                    menuState = selectDiscountScreen.ExecuteSelectedOption(option, menuState, ticketList);
+                    Console.Clear();
+                    break;
+                case 7:
                     break;
             }
         }

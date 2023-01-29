@@ -2,15 +2,30 @@
 
 public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
 {
+    public double selectedDiscount { get; private set; }
     public List<string> menuOptions = new List<string>()
     {
-        "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz dzień podróży", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
+        "Wybierz swoją zniżkę:", "Wróć"
     };
+
+    enum Discounts
+    {
+        Brak = 1,
+        Student = 30,
+        Emeryt = 45,
+        Niepelnosprawny = 50
+    }
 
     public override void DrawMenuOptions(List<AbstractTicket> ticketList)
     {
-        //Console.WriteLine($"Godzina wyjazdu: {((ticket.startHour / 10) != 0 ? ticket.startHour : "0" + ticket.startHour.ToString())}:{((ticket.startMinute / 10) != 0 ? ticket.startMinute : "0" + ticket.startMinute.ToString())}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
+        
         Console.WriteLine($"{menuOptions[0]}");
+        int j = 1;
+        foreach (var item in Enum.GetValues(typeof(Discounts)))
+        {
+            Console.WriteLine($"{j}. {item} - {((int)item != 1 ? (int)item : 0)}%");
+            j++;
+        }
         int i;
         for (i = 1; i < menuOptions.Count; i++)
         {
@@ -26,15 +41,19 @@ public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
         switch (option)
         {
             case "1":
-                return 1;
+                selectedDiscount = (int)Discounts.Brak;
+                return 7;
             case "2":
-                return 2;
+                selectedDiscount = (int)Discounts.Student / 100;
+                return 7;
             case "3":
-                return 3;
+                selectedDiscount = (int)Discounts.Emeryt / 100;
+                return 7;
             case "4":
-                return 4;
+                selectedDiscount = (int)Discounts.Niepelnosprawny / 100;
+                return 7;
             case "0":
-                return -1;
+                return 5;
             default:
                 Console.WriteLine("| Wybierz poprawną opcję |"); 
                 return menuState;
