@@ -8,7 +8,7 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
 {
     public List<string> menuOptions = new List<string>()
     {
-        "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz dzień podróży", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
+        "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
     };
 
     public override void DrawMenuOptions(MessageTicket ticket)
@@ -29,13 +29,13 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
     {
         switch (option)
         {
+            // case "1":
+            //     return 1;
             case "1":
-                return 1;
-            case "2":
                 return 2;
-            case "3":
+            case "2":
                 return 3;
-            case "4":
+            case "3":
                 return 4;
             case "0":
                 using (NamedPipeServerStream pipeServer =
