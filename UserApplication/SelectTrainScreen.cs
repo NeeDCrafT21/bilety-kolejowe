@@ -7,7 +7,7 @@ public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
     public bool isTransferTrain { get; private set; }
     public List<string> menuOptions = new List<string>()
     {
-        "Wybierz swój pociąg:", "Wyjdź"
+        "Wybierz swój pociąg:", "Wróć"
     };
 
     private TimeOnly ArrivalTime(int startHour, int startMinute)
@@ -16,6 +16,7 @@ public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
     }
     public override void DrawMenuOptions(List<AbstractTicket> ticketList)
     {
+        Console.WriteLine($"{menuOptions[0]}");
         Ticket ticket = (Ticket)ticketList[0];
         TicketAdvanced ticketAdvanced = (TicketAdvanced)ticketList[1];
         var tempTicketPrice1 = () => ticket.duration.TotalMinutes * 2;
@@ -23,10 +24,9 @@ public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
         var tempTicketPrice2 = () =>
             (ticketAdvanced.partialDuration.TotalMinutes + ticketAdvanced.duration.TotalMinutes) * 0.75;
         ticketPrice2 = tempTicketPrice2();
-        Console.WriteLine($"Dostępne pociągi:\n1. | Cena: {ticketPrice1} |\nPociąg 1, odjazd: {ArrivalTime(ticket.startHour, ticket.startMinute)}, przyjazd: {ArrivalTime(ticket.startHour, ticket.startMinute).Add(ticket.duration)}\n" +
-                          $"2. | Cena: {ticketPrice2} |\nPociąg 2 (PRZESIADKA), odjazd: {ArrivalTime(ticketAdvanced.startHour, ticketAdvanced.startMinute)}, przyjazd: {ArrivalTime(ticketAdvanced.startHour2, ticketAdvanced.startMinute2).Add(ticketAdvanced.duration)}\n" +
+        Console.WriteLine($"Dostępne pociągi:\n1. | Cena: {ticketPrice1}zł |\nPociąg 1, odjazd: {ArrivalTime(ticket.startHour, ticket.startMinute)}, przyjazd: {ArrivalTime(ticket.startHour, ticket.startMinute).Add(ticket.duration)}\n" +
+                          $"2. | Cena: {ticketPrice2}zł |\nPociąg 2 (PRZESIADKA), odjazd: {ArrivalTime(ticketAdvanced.startHour, ticketAdvanced.startMinute)}, przyjazd: {ArrivalTime(ticketAdvanced.startHour2, ticketAdvanced.startMinute2).Add(ticketAdvanced.duration)}\n" +
                           $"| Przesiadka w miejscowości {ticketAdvanced.departurePlace2}, przyjazd: {ArrivalTime(ticketAdvanced.startHour, ticketAdvanced.startMinute).Add(ticketAdvanced.partialDuration)}, odjazd: {ArrivalTime(ticketAdvanced.startHour2, ticketAdvanced.startMinute2)} |");
-        Console.WriteLine($"{menuOptions[0]}");
         int i;
         for (i = 1; i < menuOptions.Count; i++)
         {

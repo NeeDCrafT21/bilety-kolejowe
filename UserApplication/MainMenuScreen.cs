@@ -38,11 +38,6 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
             case "3":
                 return 4;
             case "0":
-                using (NamedPipeServerStream pipeServer =
-                       new NamedPipeServerStream("ticketpipe"))
-                {
-                    pipeServer.WaitForConnection();
-                }
                 return -1;
             default:
                 Console.WriteLine("| Wybierz poprawną opcję |"); 
