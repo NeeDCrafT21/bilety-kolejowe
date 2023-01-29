@@ -50,8 +50,6 @@ class Program
 
                 string message2 = JsonSerializer.Serialize(tickets);
 
-                Console.WriteLine("\nWiadomość: " + message2);
-
                 writer.WriteLine(message2);
                 writer.Flush();
                 server.Close();
