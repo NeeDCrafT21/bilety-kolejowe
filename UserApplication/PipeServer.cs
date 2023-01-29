@@ -9,9 +9,10 @@ using System.Diagnostics;
 
 public class PipeServer
 {
-    public MessageTicket2 trainInfo { get; set; }
-    
-    public void SendTicketInfo(string sendMessage)
+    private MessageTicket2 trainInfo; //{ get; set; }
+    private List<AbstractTicket> ticketList = new List<AbstractTicket>();
+
+    public async Task<List<AbstractTicket>> SendTicketInfo(string sendMessage)
     {
         Process pipeClient = new Process();
 
@@ -35,40 +36,23 @@ public class PipeServer
             StreamReader reader = new StreamReader(pipeServer);
             StreamWriter writer = new StreamWriter(pipeServer);
 
-            writer.WriteLine(sendMessage);
-            writer.Flush();
+            await writer.WriteLineAsync(sendMessage);
+            await writer.FlushAsync();
             
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
-            var returnMessage = reader.ReadLine();
+            var returnMessage = await reader.ReadLineAsync();
             Console.WriteLine($"Czytam returnMessage...\n{returnMessage}");
             
             trainInfo = JsonSerializer.Deserialize<MessageTicket2>(returnMessage);
-
-            // try
-            // {
-            //     // Read user input and send that to the client process.
-            //     using (StreamWriter sw = new StreamWriter(pipeServer))
-            //     {
-            //         sw.AutoFlush = true;
-            //         // Send a 'sync message' and wait for client to receive it.
-            //         sw.WriteLine("SYNC");
-            //         pipeServer.WaitForPipeDrain();
-            //         // Send the console input to the client process.
-            //         Console.Write("[SERVER] Enter text: ");
-            //         sw.WriteLine(Console.ReadLine());
-            //     }
-            // }
-            // // Catch the IOException that is raised if the pipe is broken
-            // // or disconnected.
-            // catch (IOException e)
-            // {
-            //     Console.WriteLine("[SERVER] Error: {0}", e.Message);
-            // }
+            ticketList.Add(trainInfo.ticket);
+            ticketList.Add(trainInfo.ticketAdvanced);
         }
 
-        pipeClient.WaitForExit();
+        await pipeClient.WaitForExitAsync();
         pipeClient.Close();
         Console.WriteLine("[SERVER] Client quit. Server terminating.");
+
+        return ticketList;
     }
 }
