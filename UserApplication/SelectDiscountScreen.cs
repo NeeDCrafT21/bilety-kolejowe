@@ -1,19 +1,15 @@
-﻿using System.IO.Pipes;
+﻿namespace UserApplication;
 
-namespace UserApplication;
-
-using System;
-
-public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
+public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
 {
     public List<string> menuOptions = new List<string>()
     {
         "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz dzień podróży", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
     };
 
-    public override void DrawMenuOptions(MessageTicket ticket)
+    public override void DrawMenuOptions(List<AbstractTicket> ticketList)
     {
-        Console.WriteLine($"Godzina wyjazdu: {((ticket.startHour / 10) != 0 ? ticket.startHour : "0" + ticket.startHour.ToString())}:{((ticket.startMinute / 10) != 0 ? ticket.startMinute : "0" + ticket.startMinute.ToString())}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
+        //Console.WriteLine($"Godzina wyjazdu: {((ticket.startHour / 10) != 0 ? ticket.startHour : "0" + ticket.startHour.ToString())}:{((ticket.startMinute / 10) != 0 ? ticket.startMinute : "0" + ticket.startMinute.ToString())}\nWyjazd z {ticket.departurePlace} do {ticket.arrivalPlace}");
         Console.WriteLine($"{menuOptions[0]}");
         int i;
         for (i = 1; i < menuOptions.Count; i++)
@@ -25,7 +21,7 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
         }
     }
     
-    public override int ExecuteSelectedOption(string option, int menuState, MessageTicket ticket)
+    public override int ExecuteSelectedOption(string option, int menuState, List<AbstractTicket> ticketList)
     {
         switch (option)
         {
@@ -38,11 +34,6 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
             case "4":
                 return 4;
             case "0":
-                using (NamedPipeServerStream pipeServer =
-                       new NamedPipeServerStream("ticketpipe"))
-                {
-                    pipeServer.WaitForConnection();
-                }
                 return -1;
             default:
                 Console.WriteLine("| Wybierz poprawną opcję |"); 

@@ -44,12 +44,12 @@ public class RunApplication
                     chooseTimeMenuScreen.ResetChoiceState();
                     Console.Clear();
                     break;
-                case 1:
-                    chooseDayMenuScreen.DrawMenuOptions(ticket); 
-                    option = ChooseMenuOption();
-                    menuState = chooseDayMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
-                    Console.Clear();
-                    break; 
+                // case 1:
+                //     chooseDayMenuScreen.DrawMenuOptions(ticket); 
+                //     option = ChooseMenuOption();
+                //     menuState = chooseDayMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
+                //     Console.Clear();
+                //     break; 
                 case 2:
                     chooseTimeMenuScreen.DrawMenuOptions(ticket); 
                     option = ChooseMenuOption();
@@ -82,6 +82,8 @@ public class RunApplication
                     option = ChooseMenuOption();
                     menuState = selectTrainScreen.ExecuteSelectedOption(option, menuState, ticketList);
                     Console.Clear();
+                    break;
+                case 6:
                     break;
             }
         }
