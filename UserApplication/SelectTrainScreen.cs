@@ -45,10 +45,10 @@ public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
                 return 0;
             case "1":
                 isTransferTrain = false;
-                return 6;
+                return 5;
             case "2":
                 isTransferTrain = true;
-                return 6;
+                return 5;
             default:
                 Console.WriteLine("| Wybierz poprawną opcję |"); 
                 return menuState;

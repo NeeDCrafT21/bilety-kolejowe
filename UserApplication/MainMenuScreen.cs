@@ -8,7 +8,7 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
 {
     private List<string> menuOptions = new List<string>()
     {
-        "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
+        "Witaj w systemie zamwiania biletów.\nWybierz opcje połączenia:", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
     };
 
     public override void DrawMenuOptions(MessageTicket ticket)
@@ -29,14 +29,12 @@ public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
     {
         switch (option)
         {
-            // case "1":
-            //     return 1;
             case "1":
-                return 2;
+                return 1;
             case "2":
-                return 3;
+                return 2;
             case "3":
-                return 4;
+                return 3;
             case "0":
                 return -1;
             default:
