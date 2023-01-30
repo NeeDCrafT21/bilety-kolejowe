@@ -21,7 +21,6 @@ class Program
 
         while (true)
         {
-            CancellationToken cancellationToken = new CancellationToken();
             using (var server = new NamedPipeClientStream("ticketpipe"))
             {
                 MessageTicket ticket = new MessageTicket(0,0,'A','B');
