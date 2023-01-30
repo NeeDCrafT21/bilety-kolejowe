@@ -6,7 +6,7 @@ using System;
 
 public class MainMenuScreen : AbstractMenuScreen<MessageTicket>
 {
-    public List<string> menuOptions = new List<string>()
+    private List<string> menuOptions = new List<string>()
     {
         "Witaj w systemie zamwiania biletów.\nWybierz opcję aby rozpocząć:", "Wybierz godzinę podróży", "Wybierz miejsce podróży", "Wyświetl dostępne pociągi", "Wyjdź"
     };

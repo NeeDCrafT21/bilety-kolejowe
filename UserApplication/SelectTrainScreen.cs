@@ -5,7 +5,7 @@ public class SelectTrainScreen : AbstractMenuScreen<List<AbstractTicket>>
     public double ticketPrice1 { get; private set; }
     public double ticketPrice2 { get; private set; }
     public bool isTransferTrain { get; private set; }
-    public List<string> menuOptions = new List<string>()
+    private List<string> menuOptions = new List<string>()
     {
         "Wybierz swój pociąg:", "Wróć"
     };
