@@ -6,7 +6,7 @@ public class FinalScreen : AbstractMenuScreen<List<AbstractTicket>>
     public double discount { get; set; }
     public double ticketPrice { get; set; }
     public bool isTransferTrain { get; set; }
-    public List<string> menuOptions = new List<string>()
+    private List<string> menuOptions = new List<string>()
     {
         "Podsumowanie:", "Zamów kolejny bilet", "Wyjdź"
     };
@@ -55,7 +55,7 @@ public class FinalScreen : AbstractMenuScreen<List<AbstractTicket>>
 
     private double CountFinalTicketPrice()
     {
-        finalTicketPrice = ticketPrice * discount;
+        finalTicketPrice = ticketPrice * (1 - discount);
         return finalTicketPrice;
     }
 }
