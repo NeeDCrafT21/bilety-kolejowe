@@ -17,6 +17,7 @@ public class PipeServer
         await using (NamedPipeServerStream pipeServer =
                new NamedPipeServerStream("ticketpipe"))
         {
+            Console.WriteLine("Nawiązywanie połączenia...");
             pipeServer.WaitForConnection();
             
             StreamReader reader = new StreamReader(pipeServer);

@@ -12,7 +12,7 @@ public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
 
     private enum Discounts
     {
-        Brak = 1,
+        Brak = 0,
         Student = 30,
         Emeryt = 45,
         Niepelnosprawny = 50,
@@ -36,7 +36,7 @@ public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
         int j = 1;
         foreach (var item in discountsQuery)
         {
-            Console.WriteLine($"{j}. {(item.ToString() == "A" || item.ToString() == "B" || item.ToString() == "C" ? "Mieszkaniec " + item : item)} - {((int)item != 1 ? (int)item : 0)}%");
+            Console.WriteLine($"{j}. {(item.ToString() == "A" || item.ToString() == "B" || item.ToString() == "C" ? "Mieszkaniec " + item : item)} - {(int)item}%");
             j++;
         }
 
@@ -71,11 +71,11 @@ public class SelectDiscountScreen : AbstractMenuScreen<List<AbstractTicket>>
                 selectedDiscount = (double)Discounts.Niepelnosprawny / 100;
                 break;
             case "0":
-                return 5;
+                return 4;
             default:
                 Console.WriteLine("| Wybierz poprawną opcję |"); 
                 return menuState;
         }
-        return 7;
+        return 6;
     }
 }

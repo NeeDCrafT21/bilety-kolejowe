@@ -7,12 +7,10 @@ using System;
 
 public class RunApplication
 {
-    //private UserInterface UI = new UserInterface();
     private Boolean run = true;
     private int menuState;
     private string option;
     private MainMenuScreen mainMenuScreen = new MainMenuScreen();
-    private ChooseDayMenuScreen chooseDayMenuScreen = new ChooseDayMenuScreen();
     private ChooseTimeMenuScreen chooseTimeMenuScreen = new ChooseTimeMenuScreen();
     private ChooseCityMenuScreen chooseCityMenuScreen = new ChooseCityMenuScreen();
     private SelectTrainScreen selectTrainScreen = new SelectTrainScreen();
@@ -25,7 +23,7 @@ public class RunApplication
     public string ChooseMenuOption()
     {
         Console.Write("Opcja: ");
-        string option = Console.ReadLine();
+        var option = Console.ReadLine();
         return option;
     }
 
@@ -53,31 +51,25 @@ public class RunApplication
                     chooseTimeMenuScreen.ResetChoiceState();
                     Console.Clear();
                     break;
-                // case 1:
-                //     chooseDayMenuScreen.DrawMenuOptions(ticket); 
-                //     option = ChooseMenuOption();
-                //     menuState = chooseDayMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
-                //     Console.Clear();
-                //     break; 
-                case 2:
+                case 1:
                     chooseTimeMenuScreen.DrawMenuOptions(ticket); 
                     option = ChooseMenuOption();
                     menuState = chooseTimeMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
                     Console.Clear(); 
                     break;
-                case 3:
+                case 2:
                     chooseCityMenuScreen.DrawMenuOptions(ticket); 
                     option = ChooseMenuOption();
                     menuState = chooseCityMenuScreen.ExecuteSelectedOption(option, menuState, ticket);
                     Console.Clear(); 
                     break;
-                case 4:
+                case 3:
                     if (ticket.departurePlace != ticket.arrivalPlace)
                     {
                         var message = JsonSerializer.Serialize(ticket);
                         var temp = async () => await sender.SendTicketInfo(message);
                         ticketList = temp().Result;
-                        menuState = 5;
+                        menuState = 4;
                         Console.Clear();
                     }
                     else
@@ -86,19 +78,19 @@ public class RunApplication
                         menuState = 0;
                     }
                     break;
-                case 5:
+                case 4:
                     selectTrainScreen.DrawMenuOptions(ticketList); 
                     option = ChooseMenuOption();
                     menuState = selectTrainScreen.ExecuteSelectedOption(option, menuState, ticketList);
                     Console.Clear();
                     break;
-                case 6:
+                case 5:
                     selectDiscountScreen.DrawMenuOptions(ticketList); 
                     option = ChooseMenuOption();
                     menuState = selectDiscountScreen.ExecuteSelectedOption(option, menuState, ticketList);
                     Console.Clear();
                     break;
-                case 7:
+                case 6:
                     finalScreen.isTransferTrain = selectTrainScreen.isTransferTrain;
                     if (!finalScreen.isTransferTrain)
                         finalScreen.ticketPrice = selectTrainScreen.ticketPrice1;
