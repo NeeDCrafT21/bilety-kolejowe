@@ -44,6 +44,9 @@ public class ChooseCityMenuScreen : AbstractMenuScreen<MessageTicket>
                 case "3":
                     departurePlace = 'C';
                     break;
+                default:
+                    Console.WriteLine("| Wybierz poprawną opcję |"); 
+                    return menuState;
             }
 
             ticket.departurePlace = departurePlace;
@@ -64,6 +67,9 @@ public class ChooseCityMenuScreen : AbstractMenuScreen<MessageTicket>
             case "3":
                 arrivalPlace = 'C';
                 break;
+            default:
+                Console.WriteLine("| Wybierz poprawną opcję |"); 
+                return menuState;
         }
 
         ticket.arrivalPlace = arrivalPlace;

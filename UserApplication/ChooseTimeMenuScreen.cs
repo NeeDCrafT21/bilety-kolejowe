@@ -38,10 +38,9 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen<MessageTicket>
             return 0;
         if (!choseMinutes)
         {
-            Console.WriteLine($"Godzina [HH]:{ticket.startMinute}");
             try
             {
-                hour = Int32.Parse(option) % 25;
+                hour = Math.Abs(Int32.Parse(option) % 25);
                 ticket.startHour = hour;
                 choseMinutes = true;
                 return menuState;
@@ -52,10 +51,9 @@ public class ChooseTimeMenuScreen : AbstractMenuScreen<MessageTicket>
             }
         }
         
-        Console.WriteLine($"Godzina {ticket.startHour}:[MM]");
         try
         {
-            minute = Int32.Parse(option) % 60;
+            minute = Math.Abs(Int32.Parse(option) % 60);
             ticket.startMinute = minute;
             return 0;
         }

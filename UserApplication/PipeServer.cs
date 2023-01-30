@@ -33,7 +33,7 @@ public class PipeServer
             ticketList.Add(trainInfo.ticketAdvanced);
         }
         
-        Console.WriteLine("[SERVER] Client quit. Server terminating.");
+        Console.WriteLine("Zakończono połączenie");
 
         return ticketList;
     }
